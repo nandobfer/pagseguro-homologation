@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import "./sass/_all.scss"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { Home } from "./pages/Home"
+import { useMuiTheme } from "./hooks/useMuiTheme"
+import { ThemeProvider } from "@mui/material"
+import { Snackbar, SnackbarProvider } from "burgos-snackbar"
+import { PagseguroOrderContextProvider } from "./contexts/pagseguroOrderContext"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+    const muiTheme = useMuiTheme()
+
+    return (
+        <ThemeProvider theme={muiTheme}>
+            <BrowserRouter>
+                <SnackbarProvider>
+                    <PagseguroOrderContextProvider>
+                        <Snackbar />
+                        <Routes>
+                            <Route index element={<Home />} />
+                        </Routes>
+                    </PagseguroOrderContextProvider>
+                </SnackbarProvider>
+            </BrowserRouter>
+        </ThemeProvider>
+    )
 }
 
-export default App;
+export default App
