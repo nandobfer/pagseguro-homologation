@@ -31,10 +31,10 @@ export const PagseguroOrder: React.FC<PagseguroOrderProps> = ({}) => {
         <>
             <h4>Resposta pagseguro: </h4>
             <div style={{ width: "100%", gap: "1vw" }}>
-                <Paper elevation={2} sx={paper_style}>
+                <Paper elevation={3} sx={paper_style}>
                     <pre>{JSON.stringify(pagseguroOrder, null, 2)}</pre>
                 </Paper>
-                <Paper elevation={2} sx={{ ...paper_style, justifyContent: "center", alignItems: "center", flex: 0.35 }}>
+                <Paper elevation={3} sx={{ ...paper_style, justifyContent: "center", alignItems: "center", flex: 0.35 }}>
                     <QRCode value={pagseguroOrder.qr_codes[0].text} size={20 * vw} />
                 </Paper>
             </div>

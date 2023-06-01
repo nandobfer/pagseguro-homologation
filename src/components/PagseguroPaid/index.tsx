@@ -13,7 +13,7 @@ export const PagseguroPaid: React.FC<PagseguroPaidProps> = ({}) => {
     return pagseguroPaid ? (
         <>
             <h4>Resposta pagseguro pagamento: </h4>
-            <Paper elevation={2} sx={paper_style}>
+            <Paper elevation={3} sx={paper_style}>
                 <pre>{JSON.stringify(pagseguroPaid, null, 2)}</pre>
             </Paper>
             <Button onClick={() => null} variant="contained" disabled>

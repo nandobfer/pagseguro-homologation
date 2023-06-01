@@ -32,7 +32,7 @@ export const NewOrder: React.FC<NewOrderProps> = ({}) => {
 
     return (
         <>
-            <Paper elevation={2} sx={paper_style}>
+            <Paper elevation={3} sx={paper_style}>
                 <pre>{JSON.stringify(order, null, 2)}</pre>
             </Paper>
             <Button onClick={() => generateNewOrder()} variant="contained">
