@@ -23,7 +23,7 @@ export const PagseguroOrder: React.FC<PagseguroOrderProps> = ({}) => {
             callback: (response: AxiosResponse) => {
                 console.log(response.data)
             },
-            finallyCallback: () => setLoading(false),
+            finallyCallback: () => setTimeout(() => setLoading(false), 5000),
         })
     }
 
