@@ -6,6 +6,7 @@ import { useMuiTheme } from "./hooks/useMuiTheme"
 import { ThemeProvider } from "@mui/material"
 import { Snackbar, SnackbarProvider } from "burgos-snackbar"
 import { PagseguroOrderContextProvider } from "./contexts/pagseguroOrderContext"
+import { PagseguroPaidProvider } from "./contexts/pagseguroPaidContext"
 
 const App = () => {
     const muiTheme = useMuiTheme()
@@ -14,12 +15,14 @@ const App = () => {
         <ThemeProvider theme={muiTheme}>
             <BrowserRouter>
                 <SnackbarProvider>
-                    <PagseguroOrderContextProvider>
-                        <Snackbar />
-                        <Routes>
-                            <Route index element={<Home />} />
-                        </Routes>
-                    </PagseguroOrderContextProvider>
+                    <PagseguroPaidProvider>
+                        <PagseguroOrderContextProvider>
+                            <Snackbar />
+                            <Routes>
+                                <Route index element={<Home />} />
+                            </Routes>
+                        </PagseguroOrderContextProvider>
+                    </PagseguroPaidProvider>
                 </SnackbarProvider>
             </BrowserRouter>
         </ThemeProvider>

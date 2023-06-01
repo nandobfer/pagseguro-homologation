@@ -4,6 +4,7 @@ import { useOrder } from "../../hooks/useOrder"
 import { useApi } from "../../hooks/useApi"
 import { usePagseguroOrder } from "../../hooks/usePagseguroOrderContext"
 import { paper_style } from "../../styles/paper"
+import { useWebsocket } from "../../hooks/useWebsocket"
 
 interface NewOrderProps {}
 
@@ -11,6 +12,7 @@ export const NewOrder: React.FC<NewOrderProps> = ({}) => {
     const order = useOrder()
     const api = useApi()
     const { setPagseguroOrder } = usePagseguroOrder()
+    const ws = useWebsocket()
 
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +23,8 @@ export const NewOrder: React.FC<NewOrderProps> = ({}) => {
         api.orders.new({
             data: order,
             callback: (response: any) => {
-                setPagseguroOrder(response.data)
+                setPagseguroOrder(response.data.pagseguro)
+                ws.sendMessage({ order: response.data.order })
             },
             finallyCallback: () => setLoading(false),
         })

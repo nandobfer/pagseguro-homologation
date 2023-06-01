@@ -5,6 +5,7 @@ import { useOrder } from "../../hooks/useOrder"
 import { useApi } from "../../hooks/useApi"
 import { NewOrder } from "../../components/NewOrder"
 import { PagseguroOrder } from "../../components/PagseguroOrder"
+import { PagseguroPaid } from "../../components/PagseguroPaid"
 
 interface HomeProps {}
 
@@ -30,6 +31,7 @@ export const Home: React.FC<HomeProps> = ({}) => {
             <h4>Pedido: </h4>
             <NewOrder />
             <PagseguroOrder />
+            <PagseguroPaid />
         </Paper>
     )
 }

@@ -25,9 +25,16 @@ export const useApi = () => {
     }
 
     const methods = {
+        url: api.getUri(),
         orders: {
             new: (options: ApiOptions) => {
                 api.post("/pagseguro/new", options.data)
+                    .then((response) => options.callback(response))
+                    .catch((error) => defaultError(error, options.errorCallback))
+                    .finally(() => defaultFinally(options.finallyCallback))
+            },
+            pay: (options: ApiOptions) => {
+                api.post("/pagseguro/pay", options.data)
                     .then((response) => options.callback(response))
                     .catch((error) => defaultError(error, options.errorCallback))
                     .finally(() => defaultFinally(options.finallyCallback))
