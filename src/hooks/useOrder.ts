@@ -6,7 +6,7 @@ export const useOrder = () => {
             email: "fernando@agenciazop.com.br",
         },
         notification_urls: ["https://app.agenciaboz.com.br:4102/api/orders/webhook"],
-        qr_codes: [{ amount: { value: 2000 } }],
+        qr_codes: [{ amount: { value: 200 } }],
     }
 
     return order
