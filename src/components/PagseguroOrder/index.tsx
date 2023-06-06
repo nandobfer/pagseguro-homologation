@@ -5,12 +5,14 @@ import { usePagseguroOrder } from "../../hooks/usePagseguroOrderContext"
 import { paper_style } from "../../styles/paper"
 import { QRCode } from "react-qrcode-logo"
 import { AxiosResponse } from "axios"
+import { useOrder } from "../../hooks/useOrder"
 
 interface PagseguroOrderProps {}
 
 export const PagseguroOrder: React.FC<PagseguroOrderProps> = ({}) => {
     const vw = window.innerWidth / 100
     const api = useApi()
+    const order = useOrder()
     const { pagseguroOrder, setPagseguroOrder } = usePagseguroOrder()
 
     const [loading, setLoading] = useState(false)
@@ -34,13 +36,17 @@ export const PagseguroOrder: React.FC<PagseguroOrderProps> = ({}) => {
                 <Paper elevation={3} sx={paper_style}>
                     <pre>{JSON.stringify(pagseguroOrder, null, 2)}</pre>
                 </Paper>
-                <Paper elevation={3} sx={{ ...paper_style, justifyContent: "center", alignItems: "center", flex: 0.35 }}>
-                    <QRCode value={pagseguroOrder.qr_codes[0].text} size={20 * vw} />
-                </Paper>
+                {order.method == "pix" && (
+                    <Paper elevation={3} sx={{ ...paper_style, justifyContent: "center", alignItems: "center", flex: 0.35 }}>
+                        <QRCode value={pagseguroOrder.qr_codes[0].text} size={20 * vw} />
+                    </Paper>
+                )}
             </div>
-            <Button onClick={() => payOrder()} variant="contained">
-                {loading ? <CircularProgress color="secondary" size={"1.5rem"} /> : "Pagar PIX"}
-            </Button>
+            {order.method == "pix" && (
+                <Button onClick={() => payOrder()} variant="contained">
+                    {loading ? <CircularProgress color="secondary" size={"1.5rem"} /> : "Pagar PIX"}
+                </Button>
+            )}
         </>
     ) : (
         <></>

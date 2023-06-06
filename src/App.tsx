@@ -7,24 +7,27 @@ import { ThemeProvider } from "@mui/material"
 import { Snackbar, SnackbarProvider } from "burgos-snackbar"
 import { PagseguroOrderContextProvider } from "./contexts/pagseguroOrderContext"
 import { PagseguroPaidProvider } from "./contexts/pagseguroPaidContext"
+import { OrderProvider } from "./contexts/orderContext"
 
 const App = () => {
     const muiTheme = useMuiTheme()
 
     return (
         <ThemeProvider theme={muiTheme}>
-            <BrowserRouter>
-                <SnackbarProvider>
-                    <PagseguroPaidProvider>
-                        <PagseguroOrderContextProvider>
-                            <Snackbar />
-                            <Routes>
-                                <Route index element={<Home />} />
-                            </Routes>
-                        </PagseguroOrderContextProvider>
-                    </PagseguroPaidProvider>
-                </SnackbarProvider>
-            </BrowserRouter>
+            <OrderProvider>
+                <BrowserRouter>
+                    <SnackbarProvider>
+                        <PagseguroPaidProvider>
+                            <PagseguroOrderContextProvider>
+                                <Snackbar />
+                                <Routes>
+                                    <Route index element={<Home />} />
+                                </Routes>
+                            </PagseguroOrderContextProvider>
+                        </PagseguroPaidProvider>
+                    </SnackbarProvider>
+                </BrowserRouter>
+            </OrderProvider>
         </ThemeProvider>
     )
 }

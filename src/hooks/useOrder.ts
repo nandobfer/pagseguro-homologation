@@ -1,13 +1,10 @@
-export const useOrder = () => {
-    const order: Order = {
-        customer: {
-            tax_id: "02576698506",
-            name: "Fernando",
-            email: "fernando@agenciazop.com.br",
-        },
-        notification_urls: ["https://app.agenciaboz.com.br:4102/api/orders/webhook"],
-        qr_codes: [{ amount: { value: 200 } }],
-    }
+import { useContext } from "react"
+import OrderContext from "../contexts/orderContext"
 
-    return order
+export const useOrder = () => {
+    const orderContext = useContext(OrderContext)
+    const order = orderContext.value
+    const setOrder = orderContext.setValue
+
+    return { ...orderContext }
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Button, Paper, CircularProgress } from "@mui/material"
+import { Button, Paper, CircularProgress, RadioGroup, FormControlLabel, Radio } from "@mui/material"
 import { useOrder } from "../../hooks/useOrder"
 import { useApi } from "../../hooks/useApi"
 import { usePagseguroOrder } from "../../hooks/usePagseguroOrderContext"
@@ -11,8 +11,8 @@ interface NewOrderProps {}
 export const NewOrder: React.FC<NewOrderProps> = ({}) => {
     const order = useOrder()
     const api = useApi()
-    const { setPagseguroOrder } = usePagseguroOrder()
     const ws = useWebsocket()
+    const { setPagseguroOrder } = usePagseguroOrder()
 
     const [loading, setLoading] = useState(false)
 
@@ -21,7 +21,7 @@ export const NewOrder: React.FC<NewOrderProps> = ({}) => {
         setLoading(true)
 
         api.orders.new({
-            data: order,
+            data: order.value,
             callback: (response: any) => {
                 setPagseguroOrder(response.data.pagseguro)
                 ws.sendMessage({ order: response.data.order })
@@ -33,8 +33,14 @@ export const NewOrder: React.FC<NewOrderProps> = ({}) => {
     return (
         <>
             <Paper elevation={3} sx={paper_style}>
-                <pre>{JSON.stringify(order, null, 2)}</pre>
+                <pre>{JSON.stringify(order.value, null, 2)}</pre>
             </Paper>
+
+            <RadioGroup row value={order.method} onChange={(event, value) => order.setMethod(value)}>
+                <FormControlLabel value="pix" control={<Radio />} label="PIX" />
+                <FormControlLabel value="card" control={<Radio />} label="Cartão" />
+            </RadioGroup>
+
             <Button onClick={() => generateNewOrder()} variant="contained">
                 {loading ? <CircularProgress color="secondary" size={"1.5rem"} /> : "Gerar pedido"}
             </Button>
